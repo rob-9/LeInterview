@@ -1,0 +1,146 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  background-image: linear-gradient(45deg, rgba(160, 32, 240, 0.8), rgba(255, 255, 0, 0.8));
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 90%;
+  height: 90%;
+}
+
+/* Camera Frame */
+.camera-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32%;
+  height: 40%;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+}
+
+/* Feedback Box */
+.feedback-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  height: 40%;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.image-section {
+  flex: 1;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.image-section img {
+  width: 70%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.text-section {
+  flex: 2;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.text-section textarea {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+/* Interactive Code Block */
+.code-block {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 95%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.language-selector {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.language-selector button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #007bff;
+  background-color: #ffffff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.language-selector button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.language-selector button:focus {
+  background-color: #007bff; 
+  color: white;
+}
+
+.code-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#codeBlock {
+  width: 100%;
+  height: 100%;
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
