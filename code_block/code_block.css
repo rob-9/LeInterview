@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+    align-items: center; /* Center vertically */
+    height: 100vh;
+}
+
+.container {
+    height: 90vh; /* 90% of the screen height */
+    width: 55vw; /* 55% of the screen width */
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+}
+
+h1 {
+    text-align: center;
+}
+
+.language-selector {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.language-selector button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #007bff;
+    background-color: #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.language-selector button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.code-container {
+    display: flex;
+    justify-content: center; /* Center the code block */
+    flex-grow: 1; /* Allow the code block to fill remaining space */
+    width: 100%; /* Make sure the container is 100% width */
+}
+
+#codeBlock {
+    width: 100%;
+    height: 100%; /* Fill the available space within the container */
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    resize: none;
+    outline: none;
+    box-sizing: border-box; /* Include padding in the total width and height */
+}

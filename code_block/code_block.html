@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Code Block</title>
+    <link rel="stylesheet" href="code_block.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Code Space</h1>
+
+        <div class="language-selector">
+            <button onclick="changeLanguage('java')">Java</button>
+            <button onclick="changeLanguage('cpp')">C++</button>
+            <button onclick="changeLanguage('python')">Python</button>
+        </div>
+
+        <div class="code-container">
+            <textarea id="codeBlock"></textarea>
+        </div>
+    </div>
+
+    <script src="code_block.js"></script>
+</body>
+</html>
