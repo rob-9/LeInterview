@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: linear-gradient(45deg, rgba(160, 32, 240, 0.8), rgba(255, 255, 0, 0.8) );
+}
+header {
+    background-color: #5f32f1fe;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+header h1 {
+    font-size: 4.5rem;
+    margin: 0;
+}
+header h2 {
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 300;
+}
+.answer-boxes {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 80%;
+    max-width: 600px;
+}
+.answer-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.answer-box label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #999;
+}
+.answer-box input {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px #ccc;
+}
+
+.answer-box select {
+    color: #90939e;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px #ccccccd9;
+    background-color: white;
+}
+
+footer {
+    margin-top: 2rem;
+    background-color: rgb(255, 255, 0);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+}
+footer p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
