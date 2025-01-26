@@ -1,3 +1,36 @@
+document.getElementById('run-code').addEventListener('click', () => {
+  const code = codeEditor.getValue();
+  const outputDiv = document.getElementById('output');
+  outputDiv.textContent = 'Running...';
+
+  // Send the code to the Flask backend
+  fetch('http://127.0.0.1:5002/execute', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ code: code }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.output) {
+        outputDiv.textContent = data.output;
+      } else {
+        outputDiv.textContent = 'Error: No output received';
+      }
+    })
+    .catch(error => {
+      outputDiv.textContent = `Error: ${error.message}`;
+    });
+});
+
+//___________________LANGUAGE SWITCHER___________________________
+
 function changeLanguage(language) {
     const codeBlock = document.getElementById('codeBlock'); // The <code> block inside the <pre>
 
@@ -5,37 +38,36 @@ function changeLanguage(language) {
     codeBlock.className = ''; // Clear all classes
     codeBlock.classList.add(`language-${language}`); // Add the new language class
 
-    // Update the code content dynamically based on the selected language
-    switch (language) {
-        case 'java':
-            codeBlock.textContent = `public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}`;
-            break;
-        case 'cpp':
-            codeBlock.textContent = `#include <iostream>
-using namespace std;
 
-int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
-}`;
-            break;
-        case 'python':
-            codeBlock.textContent = `print("Hello, World!")`;
-            break;
-        case 'css':
-            codeBlock.textContent = `::placeholder {
-    color: var(--placeholder);
-    opacity: 1;
-}`;
-            break;
-        default:
-            codeBlock.textContent = ''; // Default to empty if no language matches
-            break;
+    if (language === 'java') {
+        codeBlock.textContent = `public class HelloWorld {
+        public static void main(String[] args) {
+            System.out.println("Hello, World!");
+        }
+    }`;
+
+    } else if (language === 'cpp') {
+        codeBlock.textContent = `#include <iostream>
+    using namespace std;
+    
+    int main() {
+        cout << "Hello, World!" << endl;
+        return 0;
+    }`;
+    } else if (language === 'python') {
+        codeBlock.textContent = `print("Hello, World!")`;
+    } else if (language === 'css') {
+        codeBlock.textContent = `::placeholder {
+        color: var(--placeholder);
+        opacity: 1;
+    }`;
+    } else {
+        codeBlock.textContent = ''; 
     }
+
+     //_____________________________________________________________________
+
+      //___________________PRISM____________________________________________
 
     // Trigger syntax highlighting using Prism.js
     Prism.highlightElement(codeBlock);
@@ -52,6 +84,47 @@ int main() {
     }
 }
 
+    //___________________________________________________________________________________________________________________________________________
+
+    let text; 
+    let updateInterval;
+    async function fetchFeedback() {
+    try {
+      //____________________ ERROR BELOW___________________________
+      const response = await fetch('/get-feedback');
+
+      //____________________ ERROR BELOW___________________________
+      const data = await response.json();
+    
+      document.getElementById('feedback-text').value = data.feedback || "No feedback yet.";
+      text = data.feedback
+      
+    } 
+    
+    catch (error) {
+      console.error('Error fetching feedback:', error);
+    }
+  }
+
+  function startFeedbackUpdates() {
+    if (updateInterval) {
+      clearInterval(updateInterval); // Stop previous interval if any
+    }
+    fetchFeedback(); // Fetch feedback immediately
+    updateInterval = setInterval(fetchFeedback, 5000); // Fetch feedback every 5 seconds
+  }
+
+  async function fetch_random_quest() {
+    try {
+      const response = await fetch('/random-quest');
+      const data = await response.json();
+
+
+      document.getElementById('question-text').value = data.return_question || "No question yet.";
+    } catch (error) {
+      console.error('Error fetching question:', error);
+    }
+  }
 
 
 const pictures = {
@@ -67,7 +140,7 @@ const pictures = {
     '9':'https://b.thumbs.redditmedia.com/hLCyjXo_FrWZVmuV5jCHKFrqGMEzE4MpQS13t6_5tps.jpg'}
 
 
-    function displayPicture(n)
-    {
-        
-    }
+
+
+
+

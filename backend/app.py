@@ -1,11 +1,22 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS  # Import CORS
 import threading
 import queue
 import speech_recognition as sr
 import google.generativeai as genai
 import pyttsx3
+import subprocess  # Add this import
+import os
 
-app = Flask(__name__)
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Specify the path to the templates folder (inside interview_if)
+template_dir = os.path.join(root_dir, 'interview_if', 'templates')
+
+
+app = Flask(__name__, template_folder=template_dir)
+CORS(app)  # Enable CORS for all routes
+
 
 # Global Variables
 transcription_queue = queue.Queue()
@@ -72,6 +83,32 @@ def speak():
     engine.runAndWait()
     return jsonify({"message": "Speech generated"}), 200
 
-# Run Flask app
+# New endpoint to execute code
+@app.route('/execute', methods=['POST'])
+def execute_code():
+    data = request.json
+    code = data.get('code', '')
+
+    try:
+        # Execute the Python code
+        result = subprocess.run(
+            ['python', '-c', code],
+            capture_output=True,
+            text=True
+        )
+        if result.returncode == 0:
+            return jsonify({ 'output': result.stdout })
+        else:
+            return jsonify({ 'error': result.stderr })
+    except Exception as e:
+        return jsonify({ 'error': str(e) })
+
+
+
+# Get the absolute path to the parent folder
+@app.route('/')
+def index():
+    return render_template('interview.html')  # Ensure this matches the filename
+
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, port=5000)
