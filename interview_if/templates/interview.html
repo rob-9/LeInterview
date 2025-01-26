@@ -32,7 +32,7 @@
       justify-content: space-between;
       align-items: flex-start;
       width: 95%;
-      height: 95vh; /* Slightly less than 100vh to avoid overflow */
+      height: 98vh; /* Adjusted to avoid overflow */
       padding: 20px;
       margin: 0 auto;
       box-sizing: border-box; /* Include padding in height calculation */
@@ -51,30 +51,44 @@
 
     .left-section h1 {
       margin: 0;
-      font-size: 60px;
+      font-size: 50px;
       color: #FDB927;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Reduced margin to move the image closer */
     }
 
     #lebron-picture {
-      width: 110%;
-      max-width: 1000px;
+      width: 370px; /* Fixed width */
+      height: 230px; /* Fixed height */
       border-radius: 8px;
       border: 4px solid #FDB927;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease; /* Added transition for glow */
+      object-fit: cover; /* Ensures the image fits within the dimensions */
     }
 
     #lebron-picture:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 16px rgba(253, 185, 39, 0.5);
+      box-shadow: 0 0 20px 10px rgba(253, 185, 39, 0.7); /* Glow effect */
+    }
+
+    #videoElement {
+      width: 370px; /* Fixed width */
+      height: 230px; /* Fixed height */
+      border-radius: 8px;
+      border: 4px solid #FDB927;
+      transition: box-shadow 0.3s ease;
+      display: none; /* Initially hidden */
+      object-fit: cover; /* Ensures the video fits within the dimensions */
+    }
+
+    #videoElement:hover {
+      box-shadow: 0 0 20px 10px rgba(253, 185, 39, 0.7); /* Glow effect */
     }
 
     .feedback-box {
       width: 112%;
-      height: 44%; /* Adjust height to fit within the left section */
+      height: 53.5%; /* Adjusted height */
       background-color: rgba(51, 51, 51, 0.9);
       border: 2px solid #FDB927;
       border-radius: 12px;
@@ -86,7 +100,7 @@
     }
 
     .feedback-box:hover {
-      box-shadow: 0 8px 16px rgba(253, 185, 39, 0.5);
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
     }
 
     .text-section {
@@ -106,7 +120,7 @@
 
     #feedback-text {
       width: 100%;
-      height: 150px;
+      height: 200px;
       padding: 10px;
       font-size: 16px;
       border: 1px solid #555;
@@ -134,7 +148,6 @@
       transform: translateY(-2px);
     }
 
-    /* Add this to your existing CSS */
     .button-group {
       display: flex;
       gap: 10px;
@@ -216,7 +229,7 @@
 
     .question-box {
       width: 103%;
-      height: 40%; /* Adjust height to fit within the right section */
+      height: 48%; /* Adjusted height */
       background-color: rgba(51, 51, 51, 0.9);
       border: 2px solid #FDB927;
       border-radius: 12px;
@@ -228,7 +241,7 @@
     }
 
     .question-box:hover {
-      box-shadow: 0 8px 16px rgba(253, 185, 39, 0.5);
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
     }
 
     .question-box h3 {
@@ -254,7 +267,7 @@
 
     .code-block {
       width: 103%;
-      height: 75%; /* Adjust height to fit within the right section */
+      height: 60%; /* Adjusted height */
       background-color: rgba(51, 51, 51, 0.9);
       border: 2px solid #FDB927;
       border-radius: 12px;
@@ -266,7 +279,7 @@
     }
 
     .code-block:hover {
-      box-shadow: 0 8px 16px rgba(253, 185, 39, 0.5);
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
     }
 
     .code-block h3 {
@@ -298,6 +311,11 @@
     .language-selector button:hover {
       background-color: #555;
       transform: translateY(-2px);
+    }
+
+    .language-selector button.selected {
+      background-color: #FDB927; /* Highlight color */
+      color: #1a1a1a; /* Text color for better contrast */
     }
 
     .code-container {
@@ -352,13 +370,15 @@
   <div class="container">
     <!-- Left Section: LeBron Image and Feedback Box -->
     <div class="left-section">
-      <h1>LeInterview</h1>
+      <h1>♕ LeInterview ♕</h1>
       <img id="lebron-picture" src="Welcome.png" alt="LeBron James">
+      <!-- Video Element -->
+      <video id="videoElement" class="videoElement" autoplay></video>
       <div class="feedback-box">
         <div class="text-section">
           <h3>Feedback</h3>
           <textarea id="feedback-text" placeholder="Waiting for feedback..."></textarea>
-          <button class="feedback-button">Begin Interview</button>
+          <button class="feedback-button" onclick="startFeedbackUpdates()">Begin Interview</button>
           <div class="button-group">
             <span class="toggle-label">Toggle LeBron Mode</span>
             <label class="toggle-switch">
@@ -368,7 +388,7 @@
             <button class="feedback-button return-home-button">Return Home</button>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
     <!-- Right Section: Question Box and Code Editor -->
     <div class="right-section">
@@ -413,8 +433,12 @@
     const languageButtons = document.querySelectorAll('.language-selector button');
     languageButtons.forEach(button => {
       button.addEventListener('click', () => {
+        // Remove the 'selected' class from all buttons
         languageButtons.forEach(btn => btn.classList.remove('selected'));
+        
+        // Add the 'selected' class to the clicked button
         button.classList.add('selected');
+        
         // Change CodeMirror mode based on selected language
         if (button.classList.contains('java-button')) {
           codeEditor.setOption('mode', 'text/x-java');
@@ -453,24 +477,73 @@
         });
     });
 
-    // Toggle LeBron image visibility
+    // Toggle LeBron image and video visibility
     const lebronToggle = document.getElementById('lebron-toggle');
     const lebronPicture = document.getElementById('lebron-picture');
+    const videoElement = document.getElementById('videoElement');
 
     lebronToggle.addEventListener('change', () => {
       if (lebronToggle.checked) {
-        lebronPicture.style.display = 'none'; // Hide LeBron when toggle is "off"
+        lebronPicture.style.display = 'block'; // Show LeBron
+        videoElement.style.display = 'none'; // Hide video
       } else {
-        lebronPicture.style.display = 'block'; // Show LeBron when toggle is "on"
+        lebronPicture.style.display = 'none'; // Hide LeBron
+        videoElement.style.display = 'block'; // Show video
       }
     });
+
+    // Initialize video stream
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          videoElement.srcObject = stream;
+        })
+        .catch(function (error) {
+          console.log("Error accessing the camera: ", error);
+        });
+    } else {
+      console.log("getUserMedia not supported");
+    }
 
     // Return Home button functionality
     const returnHomeButton = document.querySelector('.return-home-button');
     returnHomeButton.addEventListener('click', () => {
       window.location.href = '/'; // Replace with your home page URL
     });
+
+    // Feedback updates
+    let updateInterval;
+    let rating;
+    async function fetchFeedback() {
+      try {
+        const response = await fetch('/get-feedback');
+        const data = await response.json();
+
+
+        if (!feedback) {
+          document.getElementById('feedback-text').value =  "No feedback yet."
+        }
+
+        else{
+          rating = 
+          document.getElementById('feedback-text').value = data.feedback.splice(5, )
+        }
+
+
+
+
+      } catch (error) {
+        console.error('Error fetching feedback:', error);
+      }
+    }
+
+    function startFeedbackUpdates() {
+      if (updateInterval) {
+        clearInterval(updateInterval); // Stop previous interval if any
+      }
+      fetchFeedback(); // Fetch feedback immediately
+      updateInterval = setInterval(fetchFeedback, 5000); // Fetch feedback every 5 seconds
+    }
   </script>
-  <script src = "script.js"> </script>
 </body>
 </html>
