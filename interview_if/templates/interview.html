@@ -495,7 +495,7 @@
     <!-- Left Section: LeBron Image and Feedback Box -->
     <div class="left-section">
       <h1>♕ LeInterview ♕</h1>
-      <img id="lebron-picture" src="Welcome.png" alt="LeBron James">
+      <img id="lebron-picture" src="../static/Welcome.png" alt="LeBron James">
       <!-- Video Element -->
       <video id="videoElement" class="videoElement" autoplay></video>
       <div class="feedback-box">
@@ -679,7 +679,7 @@ const pictures = {
           console.log(data.feedback.slice(4))
       
           document.getElementById('feedback-text').value = data.feedback.slice(4);
-          document.getElementById('#lebron-picture').src = pictures[`${String(rating)}`];
+          document.getElementById('lebron-picture').src = pictures[`${String(rating)}`];
         }  
         else {
           document.getElementById('feedback-text').value = "No feedback yet.";
@@ -695,7 +695,7 @@ const pictures = {
         clearInterval(updateInterval); // Stop previous interval if any
       }
       fetchFeedback(); // Fetch feedback immediately
-      updateInterval = setInterval(fetchFeedback, 5000); // Fetch feedback every 5 seconds
+      updateInterval = setInterval(fetchFeedback, 3000); // Fetch feedback every 5 seconds
     }
     
     async function fetchInterviewQuestion(){
@@ -770,19 +770,6 @@ const pictures = {
     function closeExpandedView() {
       overlay.style.display = 'none';
     }
-
-
-    
-
-
-
-
-
-
-
-
-
-
 
   </script>
 </body>
