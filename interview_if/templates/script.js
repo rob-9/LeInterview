@@ -3,20 +3,18 @@ document.getElementById('run-code').addEventListener('click', () => {
   const outputDiv = document.getElementById('output');
   outputDiv.textContent = 'Running...';
 
-  // Send the code to the Flask backend
+  // Get the selected language
+  const selectedLanguage = document.querySelector('.language-selector button.selected').textContent.toLowerCase();
+
+  // Send the code and language to the Flask backend
   fetch('http://127.0.0.1:5002/execute', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ code: code }),
+    body: JSON.stringify({ code: code, language: selectedLanguage }),
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       if (data.output) {
         outputDiv.textContent = data.output;

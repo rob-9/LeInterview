@@ -87,21 +87,48 @@ def speak():
 @app.route('/execute', methods=['POST'])
 def execute_code():
     data = request.json
-    code = data.get('code', '')
+    code = data.get('code')
+    language = data.get('language', 'python').lower()
 
-    try:
-        # Execute the Python code
-        result = subprocess.run(
-            ['python', '-c', code],
-            capture_output=True,
-            text=True
-        )
-        if result.returncode == 0:
-            return jsonify({ 'output': result.stdout })
-        else:
-            return jsonify({ 'error': result.stderr })
-    except Exception as e:
-        return jsonify({ 'error': str(e) })
+    if language == 'python':
+        try:
+            result = subprocess.run(['python3', '-c', code], capture_output=True, text=True)
+            output = result.stdout if result.returncode == 0 else result.stderr
+        except Exception as e:
+            output = str(e)
+    elif language == 'java':
+        try:
+            with open('Main.java', 'w') as f:
+                f.write(code)
+            compile_result = subprocess.run(['javac', 'Main.java'], capture_output=True, text=True)
+            if compile_result.returncode != 0:
+                output = compile_result.stderr
+            else:
+                run_result = subprocess.run(['java', 'Main'], capture_output=True, text=True)
+                output = run_result.stdout if run_result.returncode == 0 else run_result.stderr
+            os.remove('Main.java')
+            os.remove('Main.class')
+        except Exception as e:
+            output = str(e)
+    elif language == 'c++':
+        try:
+            with open('main.cpp', 'w') as f:
+                f.write(code)
+            compile_result = subprocess.run(['g++', 'main.cpp', '-o', 'main'], capture_output=True, text=True)
+            if compile_result.returncode != 0:
+                output = compile_result.stderr
+            else:
+                run_result = subprocess.run(['./main'], capture_output=True, text=True)
+                output = run_result.stdout if run_result.returncode == 0 else run_result.stderr
+            os.remove('main.cpp')
+            os.remove('main')
+        except Exception as e:
+            output = str(e)
+    else:
+        output = 'Unsupported language'
+
+    return jsonify({'output': output})
+
 
 
 
