@@ -12,7 +12,7 @@ stop_threads = False
 feedback_result = None
 
 # API Configuration
-GEMINI_API_KEY = "AIzaSyAbQL_FOS902OSSc7XbunDqa1SelwiBcaM"
+GEMINI_API_KEY = "AIzaSyBE-bdUQUfKW4L9UKualT10yzxk2AGeFes"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Function to get Gemini response
@@ -139,13 +139,17 @@ def start_threads():
     gemini_thread.start()
     display_thread.start()
 
+    audio_thread.join()
+    gemini_thread.join()
+    display_thread.join()
+
     return "video_thread", audio_thread, gemini_thread, display_thread 
 
 # Function to get the latest feedback
 def get_latest_feedback():
     global feedback_result
     return feedback_result
-    
+
 if __name__ == "__main__":
     start_threads()
 

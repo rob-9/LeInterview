@@ -129,9 +129,6 @@ def execute_code():
 
     return jsonify({'output': output})
 
-
-
-
 # Get the absolute path to the parent folder
 @app.route('/')
 def index():

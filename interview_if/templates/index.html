@@ -215,8 +215,8 @@
                 </select>
             </div>
             <div class="submit-button">
-                <a href="{{ url_for('index') }}">
-                    <button type="submit" class="glow-on-hover">Submit</button>
+                <a href="{{ url_for('interview') }}">
+                    <button type="submit" class="glow-on-hover ">Submit</button>
                 </a>
             </div>
         </div>
@@ -316,16 +316,16 @@
         typeWriter(title, "LeInterview", 100); // Type title at 100ms per character
         typeWriter(subtitle, "How can LeBron help you?", 50, 2000); // Type subtitle after 2 seconds
     </script>
-
     <script>
-        const navigateToInterviewPage = document.getElementsByClassName('submit-button');
-        let companyName = document.getElementById('company-name').value; 
-        console.log('hi') 
-
-         navigateToInterviewPage.addEventListener('click', function() {
-             localStorage.setItem('companyName', JSON.stringify(companyName));
-              window.location.href = '../interview_if/templates/interview.html';
-          });
+        const button = document.querySelector('.submit-button')
+        button.addEventListener('click', saveVariable)
+    
+        function saveVariable(){
+            const companyInput = document.querySelector('#company-name')
+            const company= companyInput.value
+            localStorage.setItem('companyName', company);
+        }
     </script>
+    
 </body>
 </html>

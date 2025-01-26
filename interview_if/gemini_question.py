@@ -12,7 +12,7 @@ stop_threads = False
 feedback_result = None
 
 # API Configuration
-GEMINI_API_KEY = "AIzaSyAbQL_FOS902OSSc7XbunDqa1SelwiBcaM"
+GEMINI_API_KEY = "AIzaSyBE-bdUQUfKW4L9UKualT10yzxk2AGeFes"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Function to get Gemini response
