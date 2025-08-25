@@ -1,47 +1,153 @@
-# AI Interview Assistant
+# LeInterview
 
-## Ideation  
-Within the tech industry, securing internships and job-offers often require applicants to pass rigorous screenings in the form of technical and behavioral interviews. And often times, these interviews test niche skills that can be difficult to prepare well for. To address this problem, we created **LeInterview**. This platform places the user into a working coding environment, where they will answer company-specific LeetCode questions. Simultaneously, our algorithm will assess the user's performance and provide real-time feedback. We believe consistent simulation of real interview scenarios will effectively prepare our users for their tech interviews.
+An AI-powered mock interview platform that provides real-time feedback on technical and behavioral interviews.
 
----
+## 🚀 Features
 
-## Key Features
-1. Finds most applicable interview questions, tailored to user's specific company by scraping datasets.
-2. Provides a working coding environment, although debugging tools have not yet been added.
-3. Uses voice and video to provide real-time feedback on your interview.
-4. Adds a unique twist that makes practice more engaging and memorable.
+- **🎤 Real-time Speech Recognition**: Records and transcribes your responses during interviews
+- **🤖 AI Feedback**: Provides instant feedback on your interview performance using Google's Gemini AI
+- **💻 Code Execution**: Execute and test code in Python, Java, C++, and JavaScript directly in the browser
+- **🏢 Company-specific Questions**: Get interview questions tailored to specific companies
+- **📱 Responsive UI**: Modern, responsive interface optimized for all devices
+- **🔒 Secure**: No hardcoded API keys, proper environment variable management
 
----
+## 🛠️ Quick Start
 
-## Tech Stack
-- **Frontend**: HTML, CSS, and JavaScript for UI.
-- **Backend**: Python for processing and logic.  
+### Automated Setup
 
-How it works:  
-1. The program scrapes data about the specified company to generate accurate interview questions using **Google Gemini**.  
-2. During the interview, the tool transcribes audio in real-time using the **speech_recognition** library in Python.  
-3. The transcribed text is sent to the **Google Gemini API** to generate feedback.  
-4. We used the **Flask** library to connect the Python backend to the HTML frontend.  
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd LeInterview
+```
 
----
+2. Run the setup script:
+```bash
+python setup.py
+```
 
-## Challenges
-1. **Backend Integration**: We initially planned to use **py-script** for Python integration but encountered numerous errors, forcing us to find an alternative solution.  
-2. **Frontend Complexity**: Integrating a code interpreter into the website posed significant challenges during development.  
+3. Edit `.env` file and add your GEMINI_API_KEY
 
----
+4. Start the application:
+```bash
+python app.py
+```
 
-## What we learned
-This project allowed us to:  
-- Explore and utilize various **Python libraries** for backend development.  
-- Gain foundational knowledge in **frontend development** using HTML, CSS, and JavaScript.  
-- Improve our problem-solving skills by overcoming integration challenges.  
+The application will be available at `http://localhost:5000`
 
----
+### Manual Setup
 
-## What's next for LeInterview
-Our vision is to refine and scale **LeInterview** to help inspire countless students to prepare for interviews with confidence. We aim to:  
-- Enhance the accuracy and depth of feedback.  
-- Expand the database of company-specific questions.  
-- Improve the user interface for a seamless experience.
+#### Prerequisites
 
+- Python 3.8+
+- GCC/G++ compilers
+- Java JDK (for Java code execution)
+- Audio drivers (for speech recognition)
+
+#### Installation Steps
+
+1. Install Python dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env and add your GEMINI_API_KEY
+```
+
+3. Run the application:
+```bash
+python app.py
+```
+
+## 🌐 Deployment
+
+For production deployment, see [deploy.md](deploy.md) for detailed instructions on:
+- Heroku deployment
+- Docker deployment  
+- Railway deployment
+- Vercel deployment
+- Custom server deployment
+
+## 📋 Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `GEMINI_API_KEY` | Your Google Gemini API key | ✅ Yes |
+| `FLASK_ENV` | Environment (development/production) | ❌ No |
+| `FLASK_DEBUG` | Enable debug mode | ❌ No |
+| `PORT` | Server port (auto-set by platforms) | ❌ No |
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Home page |
+| GET | `/interview` | Interview page |
+| POST | `/start-interview` | Start interview session |
+| POST | `/stop-interview` | Stop interview session |
+| GET | `/get-feedback` | Get AI feedback on responses |
+| POST | `/execute` | Execute code in various languages |
+| GET | `/random-quest/<company_name>` | Get company-specific questions |
+
+## 📁 Project Structure
+
+```
+LeInterview/
+├── app.py                 # Main Flask application
+├── requirements.txt       # Python dependencies  
+├── .env.example          # Environment variables template
+├── .gitignore            # Git ignore rules
+├── setup.py              # Automated setup script
+├── Dockerfile            # Docker configuration
+├── docker-compose.yml    # Docker Compose configuration
+├── Procfile              # Heroku deployment file
+├── runtime.txt           # Python runtime version
+├── wsgi.py               # WSGI entry point
+├── templates/            # HTML templates
+│   ├── index.html        # Landing page
+│   ├── interview.html    # Interview interface
+│   └── companies.txt     # Company questions database
+└── static/               # Static assets
+    └── Welcome.png       # Welcome image
+```
+
+## 🧪 Testing
+
+To test the application:
+
+1. **Speech Recognition**: Click "Start Recording" and speak
+2. **AI Feedback**: Verify feedback appears in the feedback panel
+3. **Code Execution**: Write code in the editor and click "Run Code"
+4. **Question Generation**: Click "New Question" to get company-specific questions
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+If you encounter any issues:
+
+1. Check the [deployment guide](deploy.md)
+2. Ensure all environment variables are set correctly
+3. Verify system dependencies are installed
+4. Check the console/logs for error messages
+
+## 🔮 Roadmap
+
+- [ ] Add more programming languages
+- [ ] Implement video interview features
+- [ ] Add interview analytics dashboard
+- [ ] Support for multiple AI models
+- [ ] Mobile app version
