@@ -4,328 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeInterview</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* General Styles */
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Inter', sans-serif;
             background: #0a0a0a;
             color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
 
-        /* Background Animation */
-        .background-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #6a11cb, #2575fc, #6a11cb, #2575fc);
-            background-size: 400% 400%;
-            animation: gradientBackground 8s ease infinite;
-            z-index: -2;
-        }
-
-        @keyframes gradientBackground {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        #container3D {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .overlay {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        .container {
             text-align: center;
+            max-width: 600px;
+            padding: 2rem;
         }
 
-        header {
-            margin-bottom: 1rem;
-        }
-
-        #title {
+        .logo {
             font-size: 4rem;
-            font-weight: 700;
-            margin: 0;
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: typeTitle 2s steps(20, end) forwards;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: #ccc;
-            margin-top: 0.5rem;
-            opacity: 0;
-            animation: typeSubtitle 2s steps(30, end) 2s forwards;
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 3rem;
+            font-weight: 300;
         }
 
         .form-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            width: 300px; /* Fixed width for form container */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.3s forwards;
         }
 
         .input-group {
             margin-bottom: 1.5rem;
-            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            color: #ccc;
+            text-align: left;
         }
 
         input, select {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border: 1px solid #333;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #1a1a1a;
             color: #fff;
             font-size: 1rem;
             outline: none;
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        input::placeholder, select {
-            color: rgba(255, 255, 255, 0.5);
+        input::placeholder {
+            color: #666;
         }
 
         input:focus, select:focus {
-            border-color: #ff7e5f;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+            border-color: #fff;
+            background: #222;
         }
 
-        /* Make the "Enter Company Name" input box shorter */
-        .short-input {
-            width: 100%;
-            max-width: 200px; /* Adjust this value to control the width */
+        select option {
+            background: #1a1a1a;
+            color: #fff;
         }
 
-        /* Ensure the select box matches the width */
-        select {
+        .submit-btn {
             width: 100%;
-            max-width: 200px; /* Match the width of the input box */
-        }
-
-        .glow-on-hover {
-            width: 100%;
-            padding: 0.75rem;
+            padding: 1rem;
             border: none;
             border-radius: 8px;
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
-            color: #fff;
+            background: #fff;
+            color: #000;
             font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .glow-on-hover:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 126, 95, 0.6);
+        .submit-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
         }
 
-        footer {
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .features {
             margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.6s forwards;
         }
 
-        footer a {
-            color: #ff7e5f;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+        .feature {
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 300;
         }
 
-        footer a:hover {
-            color: #feb47b;
+        .feature::before {
+            content: "→";
+            color: #fff;
+            font-weight: normal;
+            margin-right: 0.5rem;
         }
 
-        /* Typewriter Effect Fix */
-        #title, #subtitle {
-            overflow: hidden;
-            white-space: nowrap;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        #title::after, #subtitle::after {
-            content: "|";
-            position: absolute;
-            right: 0;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes typeTitle {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes typeSubtitle {
-            from { width: 0; opacity: 1; }
-            to { width: 100%; opacity: 1; }
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation -->
-    <div class="background-animation"></div>
-
-    <!-- Three.js Canvas Container -->
-    <div id="container3D"></div>
-
-    <!-- Overlay Content -->
-    <div class="overlay">
-        <!-- Header with Blur Effect -->
-        <header class="animate__animated animate__fadeInDown header-blur">
-            <h1 id="title">LeInterview</h1>
-        </header>
-
-        <!-- Form Container -->
-        <div class="form-container animate__animated animate__fadeInUp">
-            <div class="input-group">
-                <input type="text" id="company-name" name="company-name" class="short-input" placeholder="Enter company name" required>
-            </div>
-            <div class="input-group">
-                <select id="interview-type" name="interview-type" required>
-                    <option value="">Select interview type</option>
-                    <option value="behavioral">Behavioral Interview</option>
-                    <option value="technical">Technical Interview</option>
-                </select>
-            </div>
-            <div class="submit-button">
-                <a href="{{ url_for('interview') }}">
-                    <button type="submit" class="glow-on-hover ">Submit</button>
-                </a>
+    <div class="container">
+        <div class="logo">LeInterview</div>
+        <div class="subtitle" id="subtitle">AI-powered interview practice</div>
+        
+        <div class="form-container">
+            <form id="interviewForm">
+                <div class="input-group">
+                    <label for="company-name">Target Company</label>
+                    <input type="text" id="company-name" name="company-name" placeholder="Google, Microsoft, Amazon..." required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="interview-type">Interview Type</label>
+                    <select id="interview-type" name="interview-type" required>
+                        <option value="">Select interview type</option>
+                        <option value="behavioral">Behavioral Interview</option>
+                        <option value="technical">Technical Interview</option>
+                        <option value="system-design">System Design</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Start Interview</button>
+            </form>
+            
+            <div class="features">
+                <div class="feature">Real-time AI feedback</div>
+                <div class="feature">Code execution environment</div>
+                <div class="feature">Company-specific questions</div>
+                <div class="feature">Speech recognition & analysis</div>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
-        import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
-        import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 1, 5);
-
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById("container3D").appendChild(renderer.domElement);
-
-        // Add lights
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(1, 1, 1).normalize();
-        scene.add(directionalLight);
-
-        // Load the GLTF model - will fail gracefully if model doesn't exist
-        const loader = new GLTFLoader();
-        let model;
-
-        loader.load(
-            '/looney_tunes_world_of_mayhem_le_bron_james/scene.gltf',
-            (gltf) => {
-                model = gltf.scene;
-                scene.add(model);
-                console.log("Model loaded successfully!");
-
-                // Scale and center the model
-                model.scale.set(3, 3, 3);
-                const box = new THREE.Box3().setFromObject(model);
-                const center = new THREE.Vector3();
-                box.getCenter(center);
-                model.position.sub(center);
-            },
-            undefined,
-            (error) => {
-                console.log("3D model not found, running without 3D background");
+    <script>
+        document.getElementById('interviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const companyName = document.getElementById('company-name').value.toLowerCase().trim();
+            const interviewType = document.getElementById('interview-type').value;
+            
+            if (companyName && interviewType) {
+                localStorage.setItem('companyName', companyName);
+                localStorage.setItem('interviewType', interviewType);
+                window.location.href = '/interview';
             }
-        );
-
-        // Add OrbitControls
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.minDistance = 2;
-        controls.maxDistance = 10;
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update(); // Required for damping
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle window resize
-        window.addEventListener("resize", () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Typewriter Effect for Title and Subtitle
-        const title = document.getElementById("title");
-        const subtitle = document.getElementById("subtitle");
-
-        // Function to simulate typing
-        function typeWriter(element, text, speed, delay = 0) {
-            setTimeout(() => {
-                let i = 0;
-                element.textContent = " "; // Clear any existing text
-                const interval = setInterval(() => {
-                    if (i < text.length) {
-                        element.textContent += text.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(interval);
-                        // Remove the cursor after typing is complete
-                        element.style.animation = "none"; // Stop the cursor animation
-                        element.style.borderRight = "none"; // Remove the cursor
-                    }
-                }, speed);
-            }, delay);
-        }
-
-        // Start typing animations
-        typeWriter(title, "LeInterview", 100); // Type title at 100ms per character
-        typeWriter(subtitle, "How can LeBron help you?", 50, 2000); // Type subtitle after 2 seconds
+        // No additional typing animation needed
     </script>
-    <script>
-        const button = document.querySelector('.submit-button')
-        button.addEventListener('click', saveVariable)
-    
-        function saveVariable(){
-            const companyInput = document.querySelector('#company-name')
-            const company= companyInput.value.toLowerCase()
-            localStorage.setItem('companyName', company);
-        }
-    </script>
-    
 </body>
 </html>

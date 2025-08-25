@@ -8,7 +8,9 @@
       "Bash(true)",
       "Bash(git rev-parse:*)",
       "Bash(cp:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(grep:*)",
+      "Bash(git filter-branch:*)"
     ],
     "deny": []
   }
