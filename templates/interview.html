@@ -1,470 +1,865 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeInterview - Mock Interview Session</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/dracula.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Page</title>
+  <link rel="stylesheet" href="/scripts/prism.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Add CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/dracula.min.css">
+  <!-- Add Font Awesome for expand icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Your existing CSS styles */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            height: 100vh;
-            overflow: hidden;
-        }
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      background: linear-gradient(135deg, #552583, #FDB927);
+      overflow: hidden; /* Prevent scrolling */
+    }
 
-        .header {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 95%;
+      height: 98vh; /* Adjusted to avoid overflow */
+      padding: 20px;
+      margin: 0 auto;
+      box-sizing: border-box; /* Include padding in height calculation */
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* Left Section: LeBron Image and Feedback Box */
+    .left-section {
+      width: 32%;
+      margin-right: 20px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between; /* Distribute space evenly */
+      align-items: center;
+    }
 
-        .interview-info {
-            display: flex;
-            gap: 2rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
+    .left-section h1 {
+      margin: 0;
+      font-size: 50px;
+      color: #FDB927;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 10px; /* Reduced margin to move the image closer */
+    }
 
-        .container {
-            display: flex;
-            height: calc(100vh - 80px);
-            gap: 1rem;
-            padding: 1rem;
-        }
+    #lebron-picture {
+      width: 585px; /* Fixed width */
+      height: 310px; /* Fixed height */
+      border-radius: 8px;
+      border: 4px solid #FDB927;
+      transition: box-shadow 0.3s ease; /* Added transition for glow */
+      object-fit: cover; /* Ensures the image fits within the dimensions */
+    }
 
-        .left-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+    #lebron-picture:hover {
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Glow effect */
+    }
 
-        .right-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+    #videoElement {
+      width: 585px; /* Fixed width */
+      height: 310px; /* Fixed height */
+      border-radius: 8px;
+      border: 4px solid #FDB927;
+      transition: box-shadow 0.3s ease;
+      display: none; /* Initially hidden */
+      object-fit: cover; /* Ensures the video fits within the dimensions */
+    }
 
-        .panel {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    #videoElement:hover {
+      box-shadow: 0 0 20px 10px rgba(253, 185, 39, 0.7); /* Glow effect */
+    }
 
-        .panel h3 {
-            margin-bottom: 1rem;
-            color: #feb47b;
-            font-size: 1.2rem;
-        }
+    .feedback-box {
+      width: 112%;
+      height: 53.5%; /* Adjusted height */
+      background-color: rgba(51, 51, 51, 0.9);
+      border: 2px solid #FDB927;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease;
+      box-sizing: border-box; /* Include padding in height calculation */
+      position: relative; /* For positioning the expand icon */
+    }
 
-        .question-panel {
-            flex: 1;
-        }
+    .feedback-box:hover {
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
+    }
 
-        .feedback-panel {
-            height: 200px;
-            overflow-y: auto;
-        }
+    .text-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-        .code-panel {
-            flex: 2;
-        }
+    .text-section h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #FDB927;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
 
-        .output-panel {
-            height: 150px;
-        }
+    #feedback-text {
+      width: 100%;
+      height: 415px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      resize: none;
+      box-sizing: border-box;
+      background-color: #444;
+      color: #fff;
+    }
 
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+    .feedback-button {
+      padding: 10px 15px;
+      background-color: #FDB927;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
+    .feedback-button:hover {
+      background-color: #e6b800;
+      transform: translateY(-2px);
+    }
 
-        .btn-primary {
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
-            color: #fff;
-        }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: center;
+    }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
+    .toggle-label {
+      font-size: 16px;
+      color: #FDB927;
+      margin-right: 10px;
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
 
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-        #editor {
-            height: 300px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #444;
+      border: 1px solid #555;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
 
-        .language-select {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            color: #fff;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-        }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: #FDB927;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
 
-        .language-select option {
-            background: #2a2a2a;
-            color: #fff;
-        }
+    input:checked + .slider {
+      background-color: #FDB927;
+    }
 
-        .output {
-            background: #1a1a1a;
-            border-radius: 8px;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            height: 100px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            color: #fff;
-        }
+    input:checked + .slider:before {
+      background-color: #444;
+      transform: translateX(26px);
+    }
 
-        .question-text {
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
+    .return-home-button {
+      background-color: #FDB927;
+      color: #1a1a1a;
+      margin-left: auto; /* Push the button to the right */
+    }
 
-        .feedback-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.8rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid #feb47b;
-        }
+    .return-home-button:hover {
+      background-color: #e6b800;
+    }
 
-        .feedback-score {
-            font-weight: 700;
-            color: #ff7e5f;
-        }
+    /* Right Section: Question Box and Code Editor */
+    .right-section {
+      width: 64%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
+    .question-box {
+      width: 103%;
+      height: 40%; /* Fixed height for the question box */
+      background-color: rgba(51, 51, 51, 0.9);
+      border: 2px solid #FDB927;
+      border-radius: 12px;  
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease;
+      box-sizing: border-box; /* Include padding in height calculation */
+      position: relative; /* For positioning the expand icon */
+    }
 
-        .status-idle { background: #6c757d; }
-        .status-listening { background: #28a745; animation: pulse 1.5s infinite; }
-        .status-processing { background: #ffc107; animation: pulse 1.5s infinite; }
+    .question-box:hover {
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
+    }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
+    .question-box h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #FDB927;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
 
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+    #question-text {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      resize: none;
+      box-sizing: border-box;
+      background-color: #444;
+      color: #fff;
+      margin-top: 20px;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                overflow-y: auto;
-            }
-            
-            .left-panel, .right-panel {
-                flex: none;
-            }
-            
-            #editor {
-                height: 200px;
-            }
-        }
-    </style>
+    .code-block {
+      width: 103%;
+      height: 75%; /* Increased height */
+      background-color: rgba(51, 51, 51, 0.9);
+      border: 2px solid #FDB927;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease;
+      box-sizing: border-box; /* Include padding in height calculation */
+      position: relative; /* For positioning the expand icon */
+    }
+
+    .code-block:hover {
+      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
+    }
+
+    .code-block h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #FDB927;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    .language-selector {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .language-selector button {
+      padding: 10px 15px;
+      background-color: #444;
+      border: 1px solid #555;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .language-selector button:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+    }
+
+    .language-selector button.selected {
+      background-color: #FDB927; /* Highlight color */
+      color: #1a1a1a; /* Text color for better contrast */
+    }
+
+    .code-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px; /* Increased height */
+      overflow: hidden; /* Prevent overflow */
+    }
+
+    #output {
+      width: 100%;
+      height: 150px; /* Fixed height for the output */
+      padding: 10px;
+      font-family: "Courier New", monospace;
+      font-size: 16px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      background-color: #444;
+      color: #fff;
+      overflow-y: auto; /* Enable vertical scrolling */
+      box-sizing: border-box;
+      margin-top: 10px;
+      position: relative; /* For positioning the expand icon */
+    }
+
+    /* CodeMirror Styling */
+    .CodeMirror {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      font-family: "Courier New", monospace;
+      font-size: 16px;
+      background-color: #444;
+      color: #fff;
+      box-sizing: border-box; /* Include padding in height calculation */
+      overflow: auto; /* Enable scrolling */
+    }
+
+    .CodeMirror-gutters {
+      background-color: #444;
+      border-right: 1px solid #555;
+    }
+
+    .CodeMirror-linenumber {
+      color: #888;
+    }
+
+    .CodeMirror-scroll {
+      background-color: #444;
+    }
+
+    /* Expanded View Styles */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .expanded-container {
+      width: 80%;
+      height: 80%;
+      background-color: rgba(51, 51, 51, 0.95);
+      border: 2px solid #FDB927;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-sizing: border-box;
+    }
+
+    .expanded-container h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #FDB927;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    .expanded-container textarea {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      font-size: 18px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      resize: none;
+      box-sizing: border-box;
+      background-color: #444;
+      color: #fff;
+    }
+
+    .expanded-container .CodeMirror {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      font-family: "Courier New", monospace;
+      font-size: 18px;
+      background-color: #444;
+      color: #fff;
+      box-sizing: border-box;
+    }
+
+    .expanded-container #output {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-family: "Courier New", monospace;
+      font-size: 18px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      background-color: #444;
+      color: #fff;
+      overflow-y: auto;
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+
+    .close-button {
+      padding: 10px 15px;
+      background-color: #FDB927;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      align-self: flex-end;
+    }
+
+    .close-button:hover {
+      background-color: #e6b800;
+      transform: translateY(-2px);
+    }
+
+    /* Expand Icon Styles */
+    .expand-icon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      cursor: pointer;
+      color: #FDB927;
+      font-size: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .expand-icon:hover {
+      color: #e6b800;
+    }
+
+    /* Run Code Button Positioning */
+    #run-code {
+      position: absolute;
+      top: 10px;
+      right: 50px; /* Positioned to the left of the expand icon */
+      z-index: 1; /* Ensure it's above other elements */
+    }
+
+    /* Generate Question Button Positioning */
+    .question-button {
+      position: absolute;
+      top: 10px;
+      right: 50px; /* Positioned to the left of the expand icon */
+      z-index: 1; /* Ensure it's above other elements */
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">LeInterview</div>
-        <div class="interview-info">
-            <div>Company: <span id="company-display">Loading...</span></div>
-            <div>Type: <span id="type-display">Loading...</span></div>
+  <div class="container">
+    <!-- Left Section: LeBron Image and Feedback Box -->
+    <div class="left-section">
+      <h1>♕ LeInterview ♕</h1>
+      <img id="lebron-picture" src="../static/Welcome.png" alt="LeBron James">
+      <!-- Video Element -->
+      <video id="videoElement" class="videoElement" autoplay></video>
+      <div class="feedback-box">
+        <i class="fas fa-expand expand-icon" onclick="expandFeedbackBox()"></i>
+        <div class="text-section">
+          <h3>Feedback</h3>
+          <textarea id="feedback-text" placeholder="Waiting for feedback..."></textarea>
+          <div class="button-group">
+            <span class="toggle-label">Toggle LeBron Mode</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="lebron-toggle" checked>
+              <span class="slider"></span>
+            </label>
+            <button class="feedback-button" onclick="activateFeedback()">Activate Feedback</button>
+            <a href="{{ url_for('home') }}">
+              <button class="feedback-button return-home-button">Return Home</button>
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-
-    <div class="container">
-        <div class="left-panel">
-            <div class="panel question-panel">
-                <h3><i class="fas fa-question-circle"></i> Interview Question</h3>
-                <div class="controls">
-                    <button class="btn btn-primary" onclick="getNewQuestion()">New Question</button>
-                    <button class="btn btn-secondary" onclick="toggleInstructions()">Instructions</button>
-                </div>
-                <div id="question-text" class="question-text">
-                    Loading question...
-                </div>
-            </div>
-
-            <div class="panel feedback-panel">
-                <h3><i class="fas fa-microphone"></i> AI Feedback</h3>
-                <div class="audio-controls">
-                    <span class="status-indicator status-idle" id="status-indicator"></span>
-                    <button class="btn btn-primary" onclick="startInterview()">Start Recording</button>
-                    <button class="btn btn-secondary" onclick="stopInterview()">Stop Recording</button>
-                </div>
-                <div id="feedback-container">
-                    <div class="feedback-item">
-                        <p>Click "Start Recording" to begin receiving AI feedback on your responses.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Right Section: Question Box and Code Editor -->
+    <div class="right-section">
+      <!-- Question Box -->
+      <div class="question-box">
+        <button class="feedback-button question-button" onclick="fetchInterviewQuestion()">Generate question</button>
+        <i class="fas fa-expand expand-icon" onclick="expandQuestionBox()"></i>
+        <h3>Question</h3>
+        <textarea placeholder="Enter the question or description here." id="question-text">
+    
+        </textarea>
+      </div>
+      <!-- Code Editor -->
+      <div class="code-block">
+        <button id="run-code" class="feedback-button">Run Code</button>
+        <i class="fas fa-expand expand-icon" onclick="expandCodeBlock()"></i>
+        <h3>Code Space</h3>
+        <div class="language-selector">
+          <button class="java-button">Java</button>
+          <button class="c++button">C++</button>
+          <button class="python-button">Python</button>
         </div>
-
-        <div class="right-panel">
-            <div class="panel code-panel">
-                <h3><i class="fas fa-code"></i> Code Editor</h3>
-                <div class="controls">
-                    <select class="language-select" id="language">
-                        <option value="python">Python</option>
-                        <option value="java">Java</option>
-                        <option value="cpp">C++</option>
-                        <option value="javascript">JavaScript</option>
-                    </select>
-                    <button class="btn btn-primary" onclick="runCode()">Run Code</button>
-                    <button class="btn btn-secondary" onclick="clearCode()">Clear</button>
-                </div>
-                <div id="editor"></div>
-            </div>
-
-            <div class="panel output-panel">
-                <h3><i class="fas fa-terminal"></i> Output</h3>
-                <div id="output" class="output">Ready to execute code...</div>
-            </div>
+        <div class="code-container">
+          <!-- CodeMirror Editor -->
+          <textarea id="codeEditor"></textarea>
         </div>
+        <div id="output">
+          <i class="fas fa-expand expand-icon" onclick="expandOutput()"></i>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/python/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/clike/clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/javascript/javascript.min.js"></script>
+  <!-- Expanded View Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="expanded-container" id="expanded-container">
+      <button class="close-button" onclick="closeExpandedView()">Close</button>
+      <h3 id="expanded-title"></h3>
+      <textarea id="expanded-textarea" readonly></textarea>
+      <div id="expanded-code"></div>
+      <div id="expanded-output"></div>
+    </div>
+  </div>
 
-    <script>
-        let editor;
-        let isInterviewActive = false;
-        let feedbackInterval;
+  <!-- Add CodeMirror and its dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/clike/clike.min.js"></script>
+  <script>
+    const pictures = {
+      '0': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAx7vYppHG3mDv761hZ7Hn59uGs_JEvPovIk8KEDrdDCnwE35MvIhD8fJ892OWzbkamlQ&usqp=CAU',
+      '1': 'https://i.insider.com/5c000abbdde8676422780723?width=800&format=jpeg&auto=webp',
+      '2': 'https://content.api.news/v3/images/bin/c7373120e827e8fa56d1beb177f4fdee',
+      '3': 'https://thespun.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgzMTI4MTg5NTc2NTUzODI0/los-angeles-lakers-v-golden-state-warriors.jpg',
+      '4': 'https://i.pinimg.com/originals/fa/f4/0a/faf40afb241d94b7375bf75ea0d26268.jpg',
+      '5': 'https://i.imgflip.com/mwhox.jpg',
+      '6': 'https://cdn.vox-cdn.com/thumbor/jZ8sKeNf5uGO3nN2nzrnNr5yNQQ=/0x40:960x680/1200x800/filters:focal(0x40:960x680)/cdn.vox-cdn.com/uploads/chorus_image/image/10416343/lebronnn.0.jpg',
+      '7': 'https://hoopshype.com/wp-content/uploads/sites/92/2021/10/i_33_e4_43_lebron-james.png',
+      '8': 'https://cdn.chatsports.com/cache/eb/0f/eb0f3a1d9bf483c012a6be10acbd6bb5-original.jpg',
+      '9': 'https://b.thumbs.redditmedia.com/hLCyjXo_FrWZVmuV5jCHKFrqGMEzE4MpQS13t6_5tps.jpg'
+    };
 
-        // Initialize CodeMirror
-        document.addEventListener('DOMContentLoaded', function() {
-            editor = CodeMirror(document.getElementById('editor'), {
-                lineNumbers: true,
-                theme: 'dracula',
-                mode: 'python',
-                value: '# Write your code here\ndef solution():\n    pass\n\nif __name__ == "__main__":\n    solution()'
-            });
+    // Initialize CodeMirror
+    const codeEditor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+      lineNumbers: true,
+      theme: 'dracula',
+      mode: 'python', // Default mode
+      value: "// Write your code here\n",
+    });
 
-            // Load saved data
-            const companyName = localStorage.getItem('companyName') || 'Unknown';
-            const interviewType = localStorage.getItem('interviewType') || 'Unknown';
-            
-            document.getElementById('company-display').textContent = companyName;
-            document.getElementById('type-display').textContent = interviewType;
+    // Language selector functionality
+    const languageButtons = document.querySelectorAll('.language-selector button');
+    languageButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove the 'selected' class from all buttons
+        languageButtons.forEach(btn => btn.classList.remove('selected'));
+        
+        // Add the 'selected' class to the clicked button
+        button.classList.add('selected');
+        
+        // Change CodeMirror mode based on selected language
+        if (button.classList.contains('java-button')) {
+          codeEditor.setOption('mode', 'text/x-java');
+        } else if (button.classList.contains('c++button')) {
+          codeEditor.setOption('mode', 'text/x-c++src');
+        } else if (button.classList.contains('python-button')) {
+          codeEditor.setOption('mode', 'python');
+        }
+      });
+    });
 
-            // Load initial question
-            getNewQuestion();
+    // Run code functionality
+    document.getElementById('run-code').addEventListener('click', () => {
+      const code = codeEditor.getValue();
+      const outputDiv = document.getElementById('output');
+      outputDiv.textContent = 'Running...';
+
+      // Send the code to the Flask backend
+      fetch('http://127.0.0.1:5000/execute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: code }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.output) {
+            outputDiv.textContent = data.output;
+          } else {
+            outputDiv.textContent = 'Error: No output received';
+          }
+        })
+        .catch(error => {
+          outputDiv.textContent = `Error: ${error.message}`;
         });
+    });
 
-        // Language mode mapping
-        const languageModes = {
-            'python': 'python',
-            'java': 'text/x-java',
-            'cpp': 'text/x-c++src',
-            'javascript': 'javascript'
-        };
+    // Toggle LeBron image and video visibility
+    const lebronToggle = document.getElementById('lebron-toggle');
+    const lebronPicture = document.getElementById('lebron-picture');
+    const videoElement = document.getElementById('videoElement');
 
-        // Code templates
-        const codeTemplates = {
-            'python': '# Write your code here\ndef solution():\n    pass\n\nif __name__ == "__main__":\n    solution()',
-            'java': 'public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n        System.out.println("Hello World");\n    }\n}',
-            'cpp': '#include <iostream>\nusing namespace std;\n\nint main() {\n    // Write your code here\n    cout << "Hello World" << endl;\n    return 0;\n}',
-            'javascript': '// Write your code here\nfunction solution() {\n    console.log("Hello World");\n}\n\nsolution();'
-        };
+    lebronToggle.addEventListener('change', () => {
+      if (lebronToggle.checked) {
+        lebronPicture.style.display = 'block'; // Show LeBron
+        videoElement.style.display = 'none'; // Hide video
+      } else {
+        lebronPicture.style.display = 'none'; // Hide LeBron
+        videoElement.style.display = 'block'; // Show video
+      }
+    });
 
-        // Change language
-        document.getElementById('language').addEventListener('change', function() {
-            const language = this.value;
-            editor.setOption('mode', languageModes[language]);
-            editor.setValue(codeTemplates[language]);
+    // Initialize video stream
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          videoElement.srcObject = stream;
+        })
+        .catch(function (error) {
+          console.log("Error accessing the camera: ", error);
         });
+    } else {
+      console.log("getUserMedia not supported");
+    }
 
-        // Interview functions
-        async function startInterview() {
-            try {
-                const response = await fetch('/start-interview', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                
-                if (response.ok) {
-                    isInterviewActive = true;
-                    document.getElementById('status-indicator').className = 'status-indicator status-listening';
-                    startFeedbackPolling();
-                }
-            } catch (error) {
-                console.error('Error starting interview:', error);
-            }
-        }
+    // Return Home button functionality
+    const returnHomeButton = document.querySelector('.return-home-button');
+    returnHomeButton.addEventListener('click', () => {
+      window.location.href = '/'; // Replace with your home page URL
+    });
 
-        async function stopInterview() {
-            try {
-                const response = await fetch('/stop-interview', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                
-                if (response.ok) {
-                    isInterviewActive = false;
-                    document.getElementById('status-indicator').className = 'status-indicator status-idle';
-                    if (feedbackInterval) {
-                        clearInterval(feedbackInterval);
-                    }
-                }
-            } catch (error) {
-                console.error('Error stopping interview:', error);
-            }
-        }
 
-        function startFeedbackPolling() {
-            feedbackInterval = setInterval(async () => {
-                if (!isInterviewActive) return;
-                
-                try {
-                    const response = await fetch('/get-feedback');
-                    const data = await response.json();
-                    
-                    if (data.feedback) {
-                        addFeedback(data.feedback);
-                    }
-                } catch (error) {
-                    console.error('Error getting feedback:', error);
-                }
-            }, 2000);
-        }
+    
+    // Feedback updates
+    let updateInterval;
+    let rating;
+    async function fetchFeedback() {
+      try {
+        const response = await fetch('/get-feedback');
+        const data = await response.json();
 
-        function addFeedback(feedback) {
-            const container = document.getElementById('feedback-container');
-            const feedbackItem = document.createElement('div');
-            feedbackItem.className = 'feedback-item';
+          if (data.feedback) {
+            rating = data.feedback[0]
+            console.log(rating)
+            console.log(data.feedback.slice(4))
+        
+            //document.getElementById('feedback-text').value = data.feedback.slice(4);
+            document.getElementById('feedback-text').value = data.feedback ||"No feedback yet.";
+            document.getElementById('lebron-picture').src = pictures[`${String(rating)}`];
             
-            // Parse score if present
-            const scoreMatch = feedback.match(/^(\d+);?\s*(.*)/);
-            if (scoreMatch) {
-                const [, score, text] = scoreMatch;
-                feedbackItem.innerHTML = `
-                    <div class="feedback-score">Score: ${score}/9</div>
-                    <p>${text}</p>
-                `;
-            } else {
-                feedbackItem.innerHTML = `<p>${feedback}</p>`;
-            }
-            
-            container.appendChild(feedbackItem);
-            container.scrollTop = container.scrollHeight;
-        }
+          }  
+          else {
+            document.getElementById('feedback-text').value = "No feedback yet.";
+          }
 
-        // Question functions
-        async function getNewQuestion() {
-            const companyName = localStorage.getItem('companyName') || 'google';
-            
-            try {
-                const response = await fetch(`/random-quest/${companyName}`);
-                const data = await response.json();
-                
-                if (data.return_question) {
-                    document.getElementById('question-text').innerHTML = data.return_question;
-                } else {
-                    document.getElementById('question-text').innerHTML = 'Error loading question. Please try again.';
-                }
-            } catch (error) {
-                console.error('Error getting question:', error);
-                document.getElementById('question-text').innerHTML = 'Error loading question. Please try again.';
-            }
-        }
+      } catch (error) {
+        console.error('Error fetching feedback:', error);
+      }
+    }
 
-        // Code execution
-        async function runCode() {
-            const code = editor.getValue();
-            const language = document.getElementById('language').value;
-            const outputDiv = document.getElementById('output');
-            
-            outputDiv.textContent = 'Running code...';
-            
-            try {
-                const response = await fetch('/execute', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code, language })
-                });
-                
-                const data = await response.json();
-                outputDiv.textContent = data.output || 'No output';
-            } catch (error) {
-                outputDiv.textContent = 'Error: ' + error.message;
-            }
-        }
+    function startFeedbackUpdates() {
+      if (updateInterval) {
+        clearInterval(updateInterval); // Stop previous interval if any
+      }
+      fetchFeedback(); // Fetch feedback immediately
+      updateInterval = setInterval(fetchFeedback, 15000); // Fetch feedback every 5 seconds
+    }
 
-        function clearCode() {
-            const language = document.getElementById('language').value;
-            editor.setValue(codeTemplates[language]);
-        }
+   
+    
+    // Expand functionality
+    const overlay = document.getElementById('overlay');
+    const expandedContainer = document.getElementById('expanded-container');
+    const expandedTitle = document.getElementById('expanded-title');
+    const expandedTextarea = document.getElementById('expanded-textarea');
+    const expandedCode = document.getElementById('expanded-code');
+    const expandedOutput = document.getElementById('expanded-output');
 
-        function toggleInstructions() {
-            alert('Instructions:\n\n1. Click "Start Recording" to begin the interview\n2. Speak your answer clearly\n3. Get real-time feedback from AI\n4. Use the code editor for technical questions\n5. Click "New Question" for additional practice');
-        }
-    </script>
+    function expandFeedbackBox() {
+      expandedTitle.textContent = 'Feedback';
+      expandedTextarea.value = document.getElementById('feedback-text').value;
+      expandedTextarea.style.display = 'block';
+      expandedCode.style.display = 'none';
+      expandedOutput.style.display = 'none';
+      overlay.style.display = 'flex';
+    }
+
+    function expandQuestionBox() {
+      expandedTitle.textContent = 'Question';
+      expandedTextarea.value = document.getElementById('question-text').value;
+      expandedTextarea.style.display = 'block';
+      expandedCode.style.display = 'none';
+      expandedOutput.style.display = 'none';
+      overlay.style.display = 'flex';
+    }
+
+    function expandCodeBlock() {
+      expandedTitle.textContent = 'Code Space';
+      expandedTextarea.style.display = 'none';
+      expandedCode.style.display = 'block';
+      expandedOutput.style.display = 'block';
+      expandedCode.innerHTML = '';
+      const codeMirrorInstance = CodeMirror(expandedCode, {
+        lineNumbers: true,
+        theme: 'dracula',
+        mode: codeEditor.getOption('mode'),
+        value: codeEditor.getValue(),
+        readOnly: true,
+      });
+      expandedOutput.textContent = document.getElementById('output').textContent;
+      overlay.style.display = 'flex';
+    }
+
+    function expandOutput() {
+      expandedTitle.textContent = 'Output';
+      expandedTextarea.style.display = 'none';
+      expandedCode.style.display = 'none';
+      expandedOutput.style.display = 'block';
+      expandedOutput.textContent = document.getElementById('output').textContent;
+      overlay.style.display = 'flex';
+    }
+
+    function closeExpandedView() {
+      overlay.style.display = 'none';
+    }
+  </script>
+
+<script>
+  // Retrieve the variable from localStorage
+  let company = localStorage.getItem('companyName');
+
+  // Fetch interview question
+  async function fetchInterviewQuestion() {
+    try {
+      const response = await fetch(`random-quest/${company}`);
+      const data = await response.json();
+
+      if (data) {
+        document.getElementById("question-text").value = data.return_question;
+      } else {
+        document.getElementById("question-text").value = "No question yet.";
+      }
+    } catch (error) {
+      console.error('Error fetching interview question', error);
+    }
+  }
+</script>
+
+<script>
+  //___________________FEEDBACK UPDATES___________________________
+  let text;
+
+  // Function to activate feedback
+  async function activateFeedback() {
+    console.log("Activate Feedback button clicked"); // Debugging
+
+    try {
+      const startResponse = await fetch('/start-interview', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log("Start interview response:", startResponse); // Debugging
+
+      if (!startResponse.ok) {
+        throw new Error('Failed to start interview');
+      }
+
+      const startData = await startResponse.json();
+      console.log("Interview started:", startData.message); // Debugging
+
+      startFeedbackUpdates();
+    } catch (error) {
+      console.error('Error activating feedback:', error);
+      alert('Failed to activate feedback. Please check the console for details.');
+    }
+  }
+
+  // Function to fetch feedback from the backend
+  async function fetchFeedback() {
+    try {
+      const response = await fetch('/get-feedback');
+      const data = await response.json();
+
+      if (data.feedback) {
+        const rating = data.feedback[0]; // Extract the rating from the feedback
+        console.log(rating);
+        console.log(data.feedback.slice(4));
+
+        // Update feedback text
+        document.getElementById('feedback-text').value = data.feedback.slice(4) || "No feedback yet.";
+
+        // Update LeBron picture based on rating
+        const lebronPicture = document.getElementById('lebron-picture');
+        lebronPicture.src = pictures[`${String(rating)}`];
+      } else {
+        document.getElementById('feedback-text').value = "No feedback yet.";
+      }
+    } catch (error) {
+      console.error('Error fetching feedback:', error);
+    }
+  }
+
+  // Function to start polling for feedback updates
+  function startFeedbackUpdates() {
+    if (updateInterval) {
+      clearInterval(updateInterval); // Stop previous interval if any
+    }
+    fetchFeedback(); // Fetch feedback immediately
+    updateInterval = setInterval(fetchFeedback, 5000); // Fetch feedback every 5 seconds
+  }
+</script>
+
 </body>
 </html>
