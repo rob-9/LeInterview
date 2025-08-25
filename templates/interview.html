@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interview Page</title>
-  <link rel="stylesheet" href="/scripts/prism.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Add CodeMirror CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
@@ -504,7 +503,7 @@
     <!-- Left Section: LeBron Image and Feedback Box -->
     <div class="left-section">
       <h1>♕ LeInterview ♕</h1>
-      <img id="lebron-picture" src="../static/Welcome.png" alt="LeBron James">
+      <img id="lebron-picture" src="{{ url_for('static', filename='Welcome.png') }}" alt="LeBron James">
       <!-- Video Element -->
       <video id="videoElement" class="videoElement" autoplay></video>
       <div class="feedback-box">
@@ -545,7 +544,7 @@
         <div class="language-selector">
           <button class="java-button">Java</button>
           <button class="c++button">C++</button>
-          <button class="python-button">Python</button>
+          <button class="python-button selected">Python</button>
         </div>
         <div class="code-container">
           <!-- CodeMirror Editor -->
@@ -592,7 +591,7 @@
       lineNumbers: true,
       theme: 'dracula',
       mode: 'python', // Default mode
-      value: "// Write your code here\n",
+      value: "# Write your Python code here\nprint('Hello, LeInterview!')\n",
     });
 
     // Language selector functionality
@@ -622,13 +621,26 @@
       const outputDiv = document.getElementById('output');
       outputDiv.textContent = 'Running...';
 
+      // Determine the current language
+      let language = 'python'; // default
+      const selectedButton = document.querySelector('.language-selector button.selected');
+      if (selectedButton) {
+        if (selectedButton.classList.contains('java-button')) {
+          language = 'java';
+        } else if (selectedButton.classList.contains('c++button')) {
+          language = 'c++';
+        } else if (selectedButton.classList.contains('python-button')) {
+          language = 'python';
+        }
+      }
+
       // Send the code to the Flask backend
-      fetch('http://127.0.0.1:5000/execute', {
+      fetch('/execute', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code: code }),
+        body: JSON.stringify({ code: code, language: language }),
       })
         .then(response => response.json())
         .then(data => {
@@ -780,7 +792,7 @@
   // Fetch interview question
   async function fetchInterviewQuestion() {
     try {
-      const response = await fetch(`random-quest/${company}`);
+      const response = await fetch(`/random-quest/${company}`);
       const data = await response.json();
 
       if (data) {
