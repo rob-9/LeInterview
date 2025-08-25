@@ -2,6 +2,4 @@ Flask==2.3.3
 Flask-CORS==4.0.0
 google-generativeai==0.3.2
 SpeechRecognition==3.10.0
-pyaudio==0.2.11
-pyttsx3==2.90
 gunicorn==21.2.0

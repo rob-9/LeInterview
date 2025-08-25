@@ -5,8 +5,21 @@ import threading
 import queue
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
-import speech_recognition as sr
-import google.generativeai as genai
+try:
+    import speech_recognition as sr
+    AUDIO_ENABLED = True
+except ImportError:
+    print("Speech recognition not available - audio features disabled")
+    AUDIO_ENABLED = False
+    sr = None
+
+try:
+    import google.generativeai as genai
+    GENAI_AVAILABLE = True
+except ImportError:
+    print("Google Generative AI not available")
+    GENAI_AVAILABLE = False
+    genai = None
 
 app = Flask(__name__)
 CORS(app)
@@ -19,13 +32,31 @@ feedback_result = None
 
 # API Configuration
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-if GEMINI_API_KEY:
+DEMO_MODE = not GEMINI_API_KEY or GEMINI_API_KEY == 'demo' or not GENAI_AVAILABLE
+
+if GEMINI_API_KEY and GEMINI_API_KEY != 'demo' and GENAI_AVAILABLE:
     genai.configure(api_key=GEMINI_API_KEY)
+    print("Gemini AI configured successfully")
 else:
-    print("Warning: GEMINI_API_KEY environment variable not set")
+    print("Running in DEMO mode - using mock responses")
 
 def get_gemini_response(prompt):
     """Generate feedback response using Gemini AI"""
+    if DEMO_MODE:
+        # Return demo response
+        import random
+        scores = [6, 7, 8, 5, 9]
+        feedbacks = [
+            "Great enthusiasm! Try to speak a bit slower for clarity.",
+            "Good technical knowledge. Work on providing more specific examples.",
+            "Excellent structure in your answer. Could use more confident delivery.",
+            "Nice problem-solving approach. Remember to explain your thought process.",
+            "Strong communication skills. Try to be more concise in your explanations."
+        ]
+        score = random.choice(scores)
+        feedback = random.choice(feedbacks)
+        return f"{score}; {feedback} (Demo Mode - Get real AI feedback by setting GEMINI_API_KEY)"
+    
     try:
         feedback_context = """
         You are helping a friend with a mock interview. The following text is part of a mock interview. 
@@ -50,8 +81,18 @@ def get_gemini_response(prompt):
 def audio_transcription():
     """Handle audio transcription in background thread"""
     global stop_threads
+    
+    if not AUDIO_ENABLED:
+        print("Audio not available in this environment")
+        return
+        
     recognizer = sr.Recognizer()
-    microphone = sr.Microphone()
+    
+    try:
+        microphone = sr.Microphone()
+    except Exception as e:
+        print(f"Microphone not available: {e}")
+        return
 
     while not stop_threads:
         try:
@@ -117,8 +158,16 @@ def find_problem(company_name):
 
 def get_response_from_gemini(problem_name):
     """Get problem description from Gemini"""
-    if not GEMINI_API_KEY:
-        return "Please set GEMINI_API_KEY environment variable"
+    if DEMO_MODE:
+        return f"""**{problem_name}** (Demo Mode)
+
+Given an array of integers, return indices of two numbers that add up to a target.
+
+**Example:**
+- Input: nums = [2,7,11,15], target = 9
+- Output: [0,1] (because nums[0] + nums[1] = 2 + 7 = 9)
+
+*This is a demo response. Set GEMINI_API_KEY for real questions.*"""
     
     model = genai.GenerativeModel("gemini-1.5-flash")   
     try:
