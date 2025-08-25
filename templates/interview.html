@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interview Page</title>
-  <link rel="stylesheet" href="/scripts/prism.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Add CodeMirror CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
@@ -25,85 +24,91 @@
       min-height: 100vh;
       font-family: 'Inter', sans-serif;
       color: #fff;
-      background: linear-gradient(135deg, #552583, #FDB927);
-      overflow: hidden; /* Prevent scrolling */
+      background: #0a0a0a;
+      overflow: hidden;
     }
 
     .container {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      width: 95%;
-      height: 98vh; /* Adjusted to avoid overflow */
-      padding: 20px;
-      margin: 0 auto;
-      box-sizing: border-box; /* Include padding in height calculation */
+      width: 100%;
+      height: 100vh;
+      padding: 1rem;
+      margin: 0;
+      box-sizing: border-box;
+      gap: 1rem;
     }
 
     /* Left Section: LeBron Image and Feedback Box */
     .left-section {
-      width: 32%;
-      margin-right: 20px;
+      flex: 0 0 35%;
       display: flex;
       flex-direction: column;
       height: 100%;
-      justify-content: space-between; /* Distribute space evenly */
+      justify-content: space-between;
       align-items: center;
+      min-width: 300px;
     }
 
     .left-section h1 {
       margin: 0;
-      font-size: 50px;
-      color: #FDB927;
+      font-size: 2.5rem;
+      color: #fff;
       font-family: 'Inter', sans-serif;
-      font-weight: 600;
+      font-weight: 300;
       text-align: center;
-      margin-bottom: 10px; /* Reduced margin to move the image closer */
+      margin-bottom: 1rem;
     }
 
     #lebron-picture {
-      width: 585px; /* Fixed width */
-      height: 310px; /* Fixed height */
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 16/9;
       border-radius: 8px;
-      border: 4px solid #FDB927;
-      transition: box-shadow 0.3s ease; /* Added transition for glow */
-      object-fit: cover; /* Ensures the image fits within the dimensions */
+      border: 1px solid #333;
+      transition: all 0.3s ease;
+      object-fit: cover;
     }
 
     #lebron-picture:hover {
-      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Glow effect */
+      border-color: #fff;
     }
 
     #videoElement {
-      width: 585px; /* Fixed width */
-      height: 310px; /* Fixed height */
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 16/9;
       border-radius: 8px;
-      border: 4px solid #FDB927;
-      transition: box-shadow 0.3s ease;
-      display: none; /* Initially hidden */
-      object-fit: cover; /* Ensures the video fits within the dimensions */
+      border: 1px solid #333;
+      transition: all 0.3s ease;
+      display: none;
+      object-fit: cover;
     }
 
     #videoElement:hover {
-      box-shadow: 0 0 20px 10px rgba(253, 185, 39, 0.7); /* Glow effect */
+      border-color: #fff;
     }
 
     .feedback-box {
-      width: 112%;
-      height: 53.5%; /* Adjusted height */
-      background-color: rgba(51, 51, 51, 0.9);
-      border: 2px solid #FDB927;
-      border-radius: 12px;
-      padding: 15px;
+      width: 100%;
+      flex: 1;
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      transition: box-shadow 0.3s ease;
-      box-sizing: border-box; /* Include padding in height calculation */
-      position: relative; /* For positioning the expand icon */
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      position: relative;
+      margin-top: 1rem;
     }
 
     .feedback-box:hover {
-      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
+      border-color: #fff;
     }
 
     .text-section {
@@ -115,15 +120,15 @@
 
     .text-section h3 {
       margin: 0;
-      font-size: 20px;
-      color: #FDB927;
+      font-size: 1.1rem;
+      color: #fff;
       font-family: 'Inter', sans-serif;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     #feedback-text {
       width: 100%;
-      height: 415px;
+      flex: 1;
       padding: 10px;
       font-size: 16px;
       border: 1px solid #555;
@@ -132,23 +137,25 @@
       box-sizing: border-box;
       background-color: #444;
       color: #fff;
+      min-height: 200px;
     }
 
     .feedback-button {
       padding: 10px 15px;
-      background-color: #FDB927;
-      color: #1a1a1a;
+      background-color: #fff;
+      color: #000;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
+      font-weight: 500;
     }
 
     .feedback-button:hover {
-      background-color: #e6b800;
-      transform: translateY(-2px);
+      background-color: #f0f0f0;
+      transform: translateY(-1px);
     }
 
     .button-group {
@@ -160,7 +167,7 @@
 
     .toggle-label {
       font-size: 16px;
-      color: #FDB927;
+      color: #ccc;
       margin-right: 10px;
     }
 
@@ -197,63 +204,64 @@
       width: 26px;
       left: 4px;
       bottom: 4px;
-      background-color: #FDB927;
+      background-color: #fff;
       transition: 0.4s;
       border-radius: 50%;
     }
 
     input:checked + .slider {
-      background-color: #FDB927;
+      background-color: #fff;
     }
 
     input:checked + .slider:before {
-      background-color: #444;
+      background-color: #000;
       transform: translateX(26px);
     }
 
     .return-home-button {
-      background-color: #FDB927;
-      color: #1a1a1a;
-      margin-left: auto; /* Push the button to the right */
+      background-color: #333;
+      color: #fff;
+      margin-left: auto;
     }
 
     .return-home-button:hover {
-      background-color: #e6b800;
+      background-color: #555;
     }
 
     /* Right Section: Question Box and Code Editor */
     .right-section {
-      width: 64%;
+      flex: 1;
       height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 1rem;
+      min-width: 400px;
     }
 
     .question-box {
-      width: 103%;
-      height: 40%; /* Fixed height for the question box */
-      background-color: rgba(51, 51, 51, 0.9);
-      border: 2px solid #FDB927;
-      border-radius: 12px;  
-      padding: 15px;
+      width: 100%;
+      flex: 0 0 35%;
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;  
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      transition: box-shadow 0.3s ease;
-      box-sizing: border-box; /* Include padding in height calculation */
-      position: relative; /* For positioning the expand icon */
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      position: relative;
     }
 
     .question-box:hover {
-      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
+      border-color: #fff;
     }
 
     .question-box h3 {
       margin: 0;
-      font-size: 20px;
-      color: #FDB927;
+      font-size: 1.1rem;
+      color: #fff;
       font-family: 'Inter', sans-serif;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     #question-text {
@@ -271,29 +279,29 @@
     }
 
     .code-block {
-      width: 103%;
-      height: 75%; /* Increased height */
-      background-color: rgba(51, 51, 51, 0.9);
-      border: 2px solid #FDB927;
-      border-radius: 12px;
-      padding: 15px;
+      width: 100%;
+      flex: 1;
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      transition: box-shadow 0.3s ease;
-      box-sizing: border-box; /* Include padding in height calculation */
-      position: relative; /* For positioning the expand icon */
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      position: relative;
     }
 
     .code-block:hover {
-      box-shadow: 0 0 20px 5px rgba(253, 185, 39, 0.7); /* Enhanced glow */
+      border-color: #fff;
     }
 
     .code-block h3 {
       margin: 0;
-      font-size: 20px;
-      color: #FDB927;
+      font-size: 1.1rem;
+      color: #fff;
       font-family: 'Inter', sans-serif;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .language-selector {
@@ -320,8 +328,8 @@
     }
 
     .language-selector button.selected {
-      background-color: #FDB927; /* Highlight color */
-      color: #1a1a1a; /* Text color for better contrast */
+      background-color: #fff;
+      color: #000;
     }
 
     .code-container {
@@ -473,13 +481,13 @@
       top: 15px;
       right: 15px;
       cursor: pointer;
-      color: #FDB927;
+      color: #ccc;
       font-size: 20px;
       transition: color 0.3s ease;
     }
 
     .expand-icon:hover {
-      color: #e6b800;
+      color: #fff;
     }
 
     /* Run Code Button Positioning */
@@ -503,8 +511,8 @@
   <div class="container">
     <!-- Left Section: LeBron Image and Feedback Box -->
     <div class="left-section">
-      <h1>♕ LeInterview ♕</h1>
-      <img id="lebron-picture" src="../static/Welcome.png" alt="LeBron James">
+      <h1>LeInterview</h1>
+      <img id="lebron-picture" src="{{ url_for('static', filename='Welcome.png') }}" alt="LeBron James">
       <!-- Video Element -->
       <video id="videoElement" class="videoElement" autoplay></video>
       <div class="feedback-box">
@@ -545,7 +553,7 @@
         <div class="language-selector">
           <button class="java-button">Java</button>
           <button class="c++button">C++</button>
-          <button class="python-button">Python</button>
+          <button class="python-button selected">Python</button>
         </div>
         <div class="code-container">
           <!-- CodeMirror Editor -->
@@ -592,7 +600,7 @@
       lineNumbers: true,
       theme: 'dracula',
       mode: 'python', // Default mode
-      value: "// Write your code here\n",
+      value: "# Write your Python code here\nprint('Hello, LeInterview!')\n",
     });
 
     // Language selector functionality
@@ -622,13 +630,26 @@
       const outputDiv = document.getElementById('output');
       outputDiv.textContent = 'Running...';
 
+      // Determine the current language
+      let language = 'python'; // default
+      const selectedButton = document.querySelector('.language-selector button.selected');
+      if (selectedButton) {
+        if (selectedButton.classList.contains('java-button')) {
+          language = 'java';
+        } else if (selectedButton.classList.contains('c++button')) {
+          language = 'c++';
+        } else if (selectedButton.classList.contains('python-button')) {
+          language = 'python';
+        }
+      }
+
       // Send the code to the Flask backend
-      fetch('http://127.0.0.1:5000/execute', {
+      fetch('/execute', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code: code }),
+        body: JSON.stringify({ code: code, language: language }),
       })
         .then(response => response.json())
         .then(data => {
@@ -780,7 +801,7 @@
   // Fetch interview question
   async function fetchInterviewQuestion() {
     try {
-      const response = await fetch(`random-quest/${company}`);
+      const response = await fetch(`/random-quest/${company}`);
       const data = await response.json();
 
       if (data) {
