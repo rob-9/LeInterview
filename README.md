@@ -2,16 +2,16 @@
 
 An AI-powered mock interview platform that provides real-time feedback on technical and behavioral interviews.
 
-## 🚀 Features
+## Features
 
-- **🎤 Real-time Speech Recognition**: Records and transcribes your responses during interviews
-- **🤖 AI Feedback**: Provides instant feedback on your interview performance using Google's Gemini AI
-- **💻 Code Execution**: Execute and test code in Python, Java, C++, and JavaScript directly in the browser
-- **🏢 Company-specific Questions**: Get interview questions tailored to specific companies
-- **📱 Responsive UI**: Modern, responsive interface optimized for all devices
-- **🔒 Secure**: No hardcoded API keys, proper environment variable management
+- Real-time Speech Recognition: Records and transcribes your responses during interviews
+- AI Feedback: Provides instant feedback on your interview performance using Google's Gemini AI
+- Code Execution: Execute and test code in Python, Java, C++, and JavaScript directly in the browser
+- Company-specific Questions: Get interview questions tailored to specific companies
+- Responsive UI: Modern, responsive interface optimized for all devices
+- Secure: No hardcoded API keys, proper environment variable management
 
-## 🛠️ Quick Start
+## Quick Start
 
 ### Automated Setup
 
@@ -62,7 +62,7 @@ cp .env.example .env
 python app.py
 ```
 
-## 🌐 Deployment
+## Deployment
 
 For production deployment, see [deploy.md](deploy.md) for detailed instructions on:
 - Heroku deployment
@@ -71,16 +71,16 @@ For production deployment, see [deploy.md](deploy.md) for detailed instructions 
 - Vercel deployment
 - Custom server deployment
 
-## 📋 Environment Variables
+## Environment Variables
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `GEMINI_API_KEY` | Your Google Gemini API key | ✅ Yes |
-| `FLASK_ENV` | Environment (development/production) | ❌ No |
-| `FLASK_DEBUG` | Enable debug mode | ❌ No |
-| `PORT` | Server port (auto-set by platforms) | ❌ No |
+| `GEMINI_API_KEY` | Your Google Gemini API key | Yes |
+| `FLASK_ENV` | Environment (development/production) | No |
+| `FLASK_DEBUG` | Enable debug mode | No |
+| `PORT` | Server port (auto-set by platforms) | No |
 
-## 🔌 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -92,7 +92,7 @@ For production deployment, see [deploy.md](deploy.md) for detailed instructions 
 | POST | `/execute` | Execute code in various languages |
 | GET | `/random-quest/<company_name>` | Get company-specific questions |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 LeInterview/
@@ -114,16 +114,16 @@ LeInterview/
     └── Welcome.png       # Welcome image
 ```
 
-## 🧪 Testing
+## Testing
 
 To test the application:
 
-1. **Speech Recognition**: Click "Start Recording" and speak
-2. **AI Feedback**: Verify feedback appears in the feedback panel
-3. **Code Execution**: Write code in the editor and click "Run Code"
-4. **Question Generation**: Click "New Question" to get company-specific questions
+1. Speech Recognition: Click "Start Recording" and speak
+2. AI Feedback: Verify feedback appears in the feedback panel
+3. Code Execution: Write code in the editor and click "Run Code"
+4. Question Generation: Click "New Question" to get company-specific questions
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
@@ -131,11 +131,11 @@ To test the application:
 4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Support
+## Support
 
 If you encounter any issues:
 
@@ -144,10 +144,10 @@ If you encounter any issues:
 3. Verify system dependencies are installed
 4. Check the console/logs for error messages
 
-## 🔮 Roadmap
+## Roadmap
 
-- [ ] Add more programming languages
-- [ ] Implement video interview features
-- [ ] Add interview analytics dashboard
-- [ ] Support for multiple AI models
-- [ ] Mobile app version
+- Add more programming languages
+- Implement video interview features
+- Add interview analytics dashboard
+- Support for multiple AI models
+- Mobile app version
