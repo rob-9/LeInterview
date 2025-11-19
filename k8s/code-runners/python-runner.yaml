@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: python-executor-JOBID
+  namespace: interview-platform
+  labels:
+    role: code-executor
+    language: python
+spec:
+  ttlSecondsAfterFinished: 60
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        role: code-executor
+        language: python
+    spec:
+      serviceAccountName: code-executor
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: python-runner
+          image: python:3.11-slim
+          command: ["python3", "-c"]
+          args:
+            - "CODE_PLACEHOLDER"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL

@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: java-executor-JOBID
+  namespace: interview-platform
+  labels:
+    role: code-executor
+    language: java
+spec:
+  ttlSecondsAfterFinished: 60
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        role: code-executor
+        language: java
+    spec:
+      serviceAccountName: code-executor
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: java-runner
+          image: openjdk:11-jre-slim
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo 'CODE_PLACEHOLDER' > /tmp/Main.java
+              javac /tmp/Main.java
+              java -cp /tmp Main
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

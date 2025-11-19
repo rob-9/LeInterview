@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cpp-executor-JOBID
+  namespace: interview-platform
+  labels:
+    role: code-executor
+    language: cpp
+spec:
+  ttlSecondsAfterFinished: 60
+  backoffLimit: 0
+  template:
+    metadata:
+      labels:
+        role: code-executor
+        language: cpp
+    spec:
+      serviceAccountName: code-executor
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: cpp-runner
+          image: gcc:11
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo 'CODE_PLACEHOLDER' > /tmp/main.cpp
+              g++ /tmp/main.cpp -o /tmp/main
+              /tmp/main
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

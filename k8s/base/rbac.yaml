@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: code-executor
+  namespace: interview-platform
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: code-executor-role
+  namespace: interview-platform
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "get", "list", "delete"]
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: code-executor-binding
+  namespace: interview-platform
+subjects:
+  - kind: ServiceAccount
+    name: code-executor
+    namespace: interview-platform
+roleRef:
+  kind: Role
+  name: code-executor-role
+  apiGroup: rbac.authorization.k8s.io

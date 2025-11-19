@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: code-executor-isolation
+  namespace: interview-platform
+spec:
+  podSelector:
+    matchLabels:
+      role: code-executor
+  policyTypes:
+    - Ingress
+    - Egress
+  # Deny all ingress traffic
+  ingress: []
+  # Allow only DNS egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
